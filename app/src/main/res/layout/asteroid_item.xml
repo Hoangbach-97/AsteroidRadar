@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="@color/cv_item_color"
+    app:cardCornerRadius="8sp"
+    app:cardElevation="5dp"
+    app:contentPadding="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/id_asteroid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="212121 (2001 KB67)" />
+
+        <TextView
+            android:id="@+id/date_asteroid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/id_asteroid"
+            android:paddingTop="10dp"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="16sp"
+            tools:text="3033-23-23" />
+
+        <ImageView
+            android:id="@+id/ic_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/id_asteroid"
+            android:layout_alignBottom="@id/date_asteroid"
+            android:layout_alignParentEnd="true"
+            tools:src="@drawable/ic_status_normal" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
