@@ -1,11 +1,14 @@
 package com.udacity.asteroidradar.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.databinding.FragmentMainBinding
+import com.udacity.asteroidradar.domain.Asteroid
 import com.udacity.asteroidradar.viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
@@ -22,8 +25,13 @@ class MainFragment : Fragment() {
         binding.viewModel = viewModel
 
         setHasOptionsMenu(true)
+        viewModel._asteroidList.observe(viewLifecycleOwner, ::showAsteroidList)
 
         return binding.root
+    }
+
+   private fun showAsteroidList(listData: List<Asteroid>){
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
