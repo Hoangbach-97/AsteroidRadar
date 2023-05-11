@@ -1,7 +1,6 @@
 package com.udacity.asteroidradar.repo
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.udacity.asteroidradar.database.AsteroidsAndPictureOfDayDatabase
@@ -63,11 +62,28 @@ class AsteroidRepo(
             it?.asDomainModel()
         }
 
-    val asteroidsWeek: LiveData<List<Asteroid>> =
-        Transformations.map(database.asteroidDao.getAsteroidListByApproachDate()) {
+    val asteroidsSaved: LiveData<List<Asteroid>> =
+        Transformations.map(database.asteroidDao.getAsteroidListSaved()) {
             it?.asDomainModel()
         }
 
+
+    val asteroidsToday: LiveData<List<Asteroid>> =
+        Transformations.map(database.asteroidDao.getAsteroidListToday(todayTimeWithFormat.toString())) {
+            it?.asDomainModel()
+        }
+
+    val asteroidsWeek: LiveData<List<Asteroid>> =
+        Transformations.map(
+            database.asteroidDao.getAsteroidListWeek(
+                todayTimeWithFormat.toString(),
+                nextSevenDayWithFormat.toString()
+            )
+        ) {
+            it?.asDomainModel()
+        }
+
+
 // TODO: Today
-    // TODO: Saved
+// TODO: Week
 }

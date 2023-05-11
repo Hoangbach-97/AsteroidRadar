@@ -22,6 +22,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     val pictureOfDay = asteroidRepo.picture
 
+    val asteroidsSaved = asteroidRepo.asteroidsSaved
+
     val asteroidsWeek = asteroidRepo.asteroidsWeek
+
+    val asteroidsToday = asteroidRepo.asteroidsToday
 
 }

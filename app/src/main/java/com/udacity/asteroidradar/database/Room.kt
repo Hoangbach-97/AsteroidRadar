@@ -16,13 +16,13 @@ interface AsteroidDao {
     fun insertAll(vararg asteroids: DatabaseAsteroid)
 
     @Query("select * from databaseAsteroid order by closeApproachDate")
-    fun getAsteroidListByApproachDate(): LiveData<List<DatabaseAsteroid>>
-
-    @Query("select * from databaseAsteroid order by closeApproachDate")
-    fun getAsteroidListByWeek(): LiveData<List<DatabaseAsteroid>>
-
-    @Query("select * from databaseAsteroid order by closeApproachDate")
     fun getAsteroidListSaved(): LiveData<List<DatabaseAsteroid>>
+
+    @Query("select * from databaseAsteroid where closeApproachDate = :today")
+    fun getAsteroidListToday(today: String): LiveData<List<DatabaseAsteroid>>
+
+    @Query("select * from databaseAsteroid where closeApproachDate between :today and :endDate")
+    fun getAsteroidListWeek(today: String, endDate: String): LiveData<List<DatabaseAsteroid>>
 
 }
 

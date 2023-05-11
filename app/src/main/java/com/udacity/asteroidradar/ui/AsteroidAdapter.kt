@@ -1,9 +1,8 @@
 package com.udacity.asteroidradar.ui
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -11,12 +10,14 @@ import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.databinding.AsteroidItemBinding
 import com.udacity.asteroidradar.domain.Asteroid
 
-class AsteroidAdapter(val callback: AsteroidClick) : RecyclerView.Adapter<AsteroidAdapter.AsteroidHolder>() {
-     var _asteroids = emptyList<Asteroid>()
-    set(value) {
-        field = value
-        notifyDataSetChanged()
-    }
+class AsteroidAdapter(val callback: AsteroidClick) :
+    RecyclerView.Adapter<AsteroidAdapter.AsteroidHolder>() {
+    var _asteroids = emptyList<Asteroid>()
+        @SuppressLint("NotifyDataSetChanged")
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AsteroidHolder {
@@ -32,7 +33,7 @@ class AsteroidAdapter(val callback: AsteroidClick) : RecyclerView.Adapter<Astero
     override fun onBindViewHolder(holder: AsteroidHolder, position: Int) {
         holder.view.also {
             it.asteroid = _asteroids[position]
-            it.asteroidCallback =  callback
+            it.asteroidCallback = callback
             if (_asteroids[position].isPotentiallyHazardous) {
                 holder.view.icStatus.setImageResource(R.drawable.ic_status_potentially_hazardous)
             } else {
@@ -52,6 +53,6 @@ class AsteroidAdapter(val callback: AsteroidClick) : RecyclerView.Adapter<Astero
     }
 }
 
-class AsteroidClick(val click: (Asteroid) -> Unit){
+class AsteroidClick(val click: (Asteroid) -> Unit) {
     fun onClick(asteroid: Asteroid) = click(asteroid)
 }
