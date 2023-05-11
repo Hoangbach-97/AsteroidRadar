@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="asteroid"
+            type="com.udacity.asteroidradar.domain.Asteroid" />
+
+        <variable
+            name="asteroidCallback"
+            type="com.udacity.asteroidradar.ui.AsteroidClick" />
+    </data>
+<androidx.cardview.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="80dp"
     android:layout_margin="8dp"
@@ -12,32 +26,35 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:onClick="@{() -> asteroidCallback.onClick(asteroid)}">
 
         <TextView
-            android:id="@+id/id_asteroid"
+            android:id="@+id/name_asteroid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/cardview_light_background"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:text="@{asteroid.codename}"
             tools:text="212121 (2001 KB67)" />
 
         <TextView
             android:id="@+id/date_asteroid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/id_asteroid"
+            android:layout_below="@id/name_asteroid"
             android:paddingTop="10dp"
             android:textColor="@color/cardview_light_background"
             android:textSize="16sp"
+            android:text="@{asteroid.closeApproachDate}"
             tools:text="3033-23-23" />
 
         <ImageView
             android:id="@+id/ic_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/id_asteroid"
+            android:layout_alignTop="@id/name_asteroid"
             android:layout_alignBottom="@id/date_asteroid"
             android:layout_alignParentEnd="true"
             tools:src="@drawable/ic_status_normal" />
@@ -45,3 +62,4 @@
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
+</layout>

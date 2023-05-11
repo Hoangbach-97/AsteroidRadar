@@ -1,22 +1,27 @@
 package com.udacity.asteroidradar.viewmodel
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.udacity.asteroidradar.domain.Asteroid
+import com.udacity.asteroidradar.database.getDatabase
 import com.udacity.asteroidradar.repo.AsteroidRepo
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
-    private val asteroidRepo = AsteroidRepo()
-
-    private val asteroidList: MutableLiveData<MutableList<Asteroid>> = MutableLiveData()
-    val _asteroidList: MutableLiveData<MutableList<Asteroid>>
-        get() = asteroidList
+class MainViewModel(application: Application) : AndroidViewModel(application) {
+    private val database = getDatabase(application)
+    private val asteroidRepo = AsteroidRepo(database)
 
     init {
         viewModelScope.launch {
-            asteroidRepo.refreshDataAsteroid()
+            asteroidRepo.run {
+                refreshDataAsteroidAndSave()
+                refreshImageOfTodayAndSave()
+            }
         }
     }
+
+    val pictureOfDay = asteroidRepo.picture
+
+    val asteroidsWeek = asteroidRepo.asteroidsWeek
+
 }
