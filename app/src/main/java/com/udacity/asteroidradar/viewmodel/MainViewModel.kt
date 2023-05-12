@@ -1,6 +1,7 @@
 package com.udacity.asteroidradar.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.udacity.asteroidradar.database.getDatabase
@@ -13,13 +14,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         viewModelScope.launch {
-            asteroidRepo.run {
-                refreshDataAsteroidAndSave()
-                refreshImageOfTodayAndSave()
+            try {
+                asteroidRepo.run {
+                    refreshDataAsteroidAndSave()
+                    refreshImageOfTodayAndSave()
+                }
+            } catch (e: Exception) {
+                Log.e("Asteroid_error", "Exception thrown: ${e.message}")
             }
         }
     }
-
     val pictureOfDay = asteroidRepo.picture
 
     val asteroidsSaved = asteroidRepo.asteroidsSaved

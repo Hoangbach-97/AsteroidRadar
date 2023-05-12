@@ -27,7 +27,7 @@ class AsteroidRepo(
         @SuppressLint("WeekBasedYear")
         private val dateTimeFormatter = DateTimeFormatter.ofPattern(API_QUERY_DATE_FORMAT)
         private val todayTimeWithFormat = LocalDate.now().format(dateTimeFormatter)
-        private val nextSevenDayWithFormat = LocalDate.now().plusDays(1).format(dateTimeFormatter)
+        private val nextSevenDayWithFormat = LocalDate.now().plusDays(7).format(dateTimeFormatter)
     }
 
     suspend fun refreshDataAsteroidAndSave() {
@@ -52,14 +52,14 @@ class AsteroidRepo(
     suspend fun refreshImageOfTodayAndSave() {
         withContext(Dispatchers.IO) {
             val result = AsteroidApi.retrofitService.getPlanetaty()
-            database.pictureOfDayDao.insertAll(result.asDatabaseModel())
+            if (result.mediaType == "image") database.pictureOfDayDao.insertAll(result.asDatabaseModel())
         }
     }
 
 
     val picture: LiveData<PictureOfDay> =
         Transformations.map(database.pictureOfDayDao.getTheLatestPictureOfDay()) {
-            it?.asDomainModel()
+                it?.asDomainModel()
         }
 
     val asteroidsSaved: LiveData<List<Asteroid>> =

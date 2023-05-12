@@ -67,7 +67,12 @@ class MainFragment : Fragment() {
     }
 
     private fun showPictureOfDay(pictureOfDay: PictureOfDay?) {
-        Picasso.with(context).load(pictureOfDay?.url).into(this.pictureOfDay)
+        pictureOfDay?.let {
+            Picasso.with(context).load(pictureOfDay.url)
+                .placeholder(R.drawable.placeholder_picture_of_day)
+                .fit()
+                .into(this.pictureOfDay)
+        }
     }
 
     private fun showAsteroidSaved(asteroids: List<Asteroid>) {
