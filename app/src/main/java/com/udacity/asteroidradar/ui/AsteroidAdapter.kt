@@ -10,7 +10,7 @@ import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.databinding.AsteroidItemBinding
 import com.udacity.asteroidradar.domain.Asteroid
 
-class AsteroidAdapter(val callback: AsteroidClick) :
+class AsteroidAdapter(private val callback: AsteroidClick) :
     RecyclerView.Adapter<AsteroidAdapter.AsteroidHolder>() {
     var _asteroids = emptyList<Asteroid>()
         @SuppressLint("NotifyDataSetChanged")
